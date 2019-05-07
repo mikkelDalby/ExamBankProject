@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "235135062962",
+    "firebase_url": "https://exambankproject.firebaseio.com",
+    "project_id": "exambankproject",
+    "storage_bucket": "exambankproject.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:235135062962:android:8a5ade62a3dbef50",
+        "android_client_info": {
+          "package_name": "mikkeldalby.exambankproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "235135062962-fh9gfncdeksct4j8jasab79ko8mn9url.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1rS6ztkquHnZjkE5uKvNuOdhiRU9fdLU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "235135062962-fh9gfncdeksct4j8jasab79ko8mn9url.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
