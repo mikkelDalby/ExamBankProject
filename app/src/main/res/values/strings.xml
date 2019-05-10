@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">ExamBankProject</string>
+    <string name="title_login">Login</string>
+    <string name="button_login">Login</string>
+    <string name="button_create_new_account">Create new account</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="error_required">Required.</string>
+    <string name="title_create_account">Create new account</string>
+    <string name="button_create_account">Create account</string>
+    <string name="button_login_existing_account">Login with existing account</string>
+    <string name="title_verify_with_nemid">Verify with nemid</string>
+    <string name="txt_write_value_for_key">Write value for key:</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="error_authentication_failed">Authentication failed.</string>
+    <string name="title_nemid">NemId</string>
+    <string name="txt_nemid_key">Write the value for key</string>
+    <string name="button_back_to_login">Back to login</string>
+    <string name="hint_value">Value</string>
 </resources>
