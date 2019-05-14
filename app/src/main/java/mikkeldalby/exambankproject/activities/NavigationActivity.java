@@ -62,7 +62,8 @@ public class NavigationActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            // Disable back button, so you cant go back to nemid
+            //super.onBackPressed();
         }
     }
 

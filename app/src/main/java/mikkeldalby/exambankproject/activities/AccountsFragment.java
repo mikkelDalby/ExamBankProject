@@ -17,6 +17,7 @@ import mikkeldalby.exambankproject.R;
 public class AccountsFragment extends Fragment {
     private View view;
 
+
     public TableLayout accountsTable;
 
     @Nullable
@@ -40,8 +41,6 @@ public class AccountsFragment extends Fragment {
         stringList.add("Test");
         stringList.add("Test2");
 
-
-
         for (String i: stringList){
             LayoutInflater li = LayoutInflater.from(view.getContext());
             View tr = li.inflate(R.layout.account_row, null);
@@ -51,8 +50,5 @@ public class AccountsFragment extends Fragment {
             accountBalance.setText(i);
             accountsTable.addView(tr);
         }
-
-
-
     }
 }

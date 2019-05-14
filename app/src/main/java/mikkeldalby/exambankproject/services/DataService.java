@@ -1,15 +1,15 @@
 package mikkeldalby.exambankproject.services;
 
-import com.google.firebase.firestore.FirebaseFirestore;
+import android.app.Activity;
 
-import mikkeldalby.exambankproject.activities.LoginActivity;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class DataService {
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private LoginActivity activity;
+    private Activity activity;
 
-    public DataService(LoginActivity activity){
+    public DataService(Activity activity){
         this.activity = activity;
     }
 }

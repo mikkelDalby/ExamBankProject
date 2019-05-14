@@ -29,6 +29,11 @@ public class LoginActivity extends AppCompatActivity {
         init();
     }
 
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+    }
+
     /**
      * Initialization method of this activity
      * Responsible for mapping views to variables and setup onclick methods

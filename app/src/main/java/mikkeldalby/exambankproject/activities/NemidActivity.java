@@ -47,6 +47,7 @@ public class NemidActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                authService.logout();
                 Intent i = new Intent(NemidActivity.this, LoginActivity.class);
                 startActivity(i);
             }
@@ -60,5 +61,10 @@ public class NemidActivity extends AppCompatActivity {
             Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
             startActivity(i);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
     }
 }
