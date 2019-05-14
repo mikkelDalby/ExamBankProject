@@ -11,10 +11,10 @@ public class Customer implements Parcelable {
     private String adress;
     private String city;
     private String cpr;
-    private String customerNumber;
-    private String firstName;
-    private String lastName;
-    private String registrationNumber;
+    private String customernumber;
+    private String firstname;
+    private String lastname;
+    private String registrationnumber;
     private int zipcode;
 
     private List<Account> accounts;
@@ -25,13 +25,16 @@ public class Customer implements Parcelable {
         this.adress = adress;
         this.city = city;
         this.cpr = cpr;
-        this.customerNumber = customerNumber;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.registrationNumber = registrationNumber;
+        this.customernumber = customerNumber;
+        this.firstname = firstName;
+        this.lastname = lastName;
+        this.registrationnumber = registrationNumber;
         this.zipcode = zipcode;
         this.accounts = accounts;
         this.department = department;
+    }
+
+    public Customer() {
     }
 
     protected Customer(Parcel in) {
@@ -39,10 +42,10 @@ public class Customer implements Parcelable {
         adress = in.readString();
         city = in.readString();
         cpr = in.readString();
-        customerNumber = in.readString();
-        firstName = in.readString();
-        lastName = in.readString();
-        registrationNumber = in.readString();
+        customernumber = in.readString();
+        firstname = in.readString();
+        lastname = in.readString();
+        registrationnumber = in.readString();
         zipcode = in.readInt();
         department = in.readParcelable(Department.class.getClassLoader());
     }
@@ -91,36 +94,36 @@ public class Customer implements Parcelable {
         this.cpr = cpr;
     }
 
-    public String getCustomerNumber() {
-        return customerNumber;
+    public String getCustomernumber() {
+        return customernumber;
     }
 
-    public void setCustomerNumber(String customerNumber) {
-        this.customerNumber = customerNumber;
+    public void setCustomernumber(String customernumber) {
+        this.customernumber = customernumber;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
-    public String getRegistrationNumber() {
-        return registrationNumber;
+    public String getRegistrationnumber() {
+        return registrationnumber;
     }
 
-    public void setRegistrationNumber(String registrationNumber) {
-        this.registrationNumber = registrationNumber;
+    public void setRegistrationnumber(String registrationnumber) {
+        this.registrationnumber = registrationnumber;
     }
 
     public int getZipcode() {
@@ -158,11 +161,28 @@ public class Customer implements Parcelable {
         dest.writeString(adress);
         dest.writeString(city);
         dest.writeString(cpr);
-        dest.writeString(customerNumber);
-        dest.writeString(firstName);
-        dest.writeString(lastName);
-        dest.writeString(registrationNumber);
+        dest.writeString(customernumber);
+        dest.writeString(firstname);
+        dest.writeString(lastname);
+        dest.writeString(registrationnumber);
         dest.writeInt(zipcode);
         dest.writeParcelable(department, flags);
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "customerId='" + customerId + '\'' +
+                ", adress='" + adress + '\'' +
+                ", city='" + city + '\'' +
+                ", cpr='" + cpr + '\'' +
+                ", customernumber='" + customernumber + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", registrationnumber='" + registrationnumber + '\'' +
+                ", zipcode=" + zipcode +
+                ", accounts=" + accounts +
+                ", department=" + department +
+                '}';
     }
 }

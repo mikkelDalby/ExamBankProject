@@ -6,25 +6,28 @@ import android.os.Parcelable;
 public class Account implements Parcelable {
     // accountType is the document id in firebase
     private String accountType;
-    private String accountNumber;
+    private String accountnumber;
     private boolean active;
     private double balance;
-    private String customName;
+    private String customname;
 
     public Account(String accountType, String accountNumber, boolean active, double balance, String customName) {
         this.accountType = accountType;
-        this.accountNumber = accountNumber;
+        this.accountnumber = accountNumber;
         this.active = active;
         this.balance = balance;
-        this.customName = customName;
+        this.customname = customName;
+    }
+
+    public Account() {
     }
 
     protected Account(Parcel in) {
         accountType = in.readString();
-        accountNumber = in.readString();
+        accountnumber = in.readString();
         active = in.readByte() != 0;
         balance = in.readDouble();
-        customName = in.readString();
+        customname = in.readString();
     }
 
     public static final Creator<Account> CREATOR = new Creator<Account>() {
@@ -47,12 +50,12 @@ public class Account implements Parcelable {
         this.accountType = accountType;
     }
 
-    public String getAccountNumber() {
-        return accountNumber;
+    public String getAccountnumber() {
+        return accountnumber;
     }
 
-    public void setAccountNumber(String accountNumber) {
-        this.accountNumber = accountNumber;
+    public void setAccountnumber(String accountnumber) {
+        this.accountnumber = accountnumber;
     }
 
     public boolean isActive() {
@@ -71,12 +74,12 @@ public class Account implements Parcelable {
         this.balance = balance;
     }
 
-    public String getCustomName() {
-        return customName;
+    public String getCustomname() {
+        return customname;
     }
 
-    public void setCustomName(String customName) {
-        this.customName = customName;
+    public void setCustomname(String customname) {
+        this.customname = customname;
     }
 
     @Override
@@ -87,9 +90,20 @@ public class Account implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(accountType);
-        dest.writeString(accountNumber);
+        dest.writeString(accountnumber);
         dest.writeByte((byte) (active ? 1 : 0));
         dest.writeDouble(balance);
-        dest.writeString(customName);
+        dest.writeString(customname);
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "accountType='" + accountType + '\'' +
+                ", accountnumber='" + accountnumber + '\'' +
+                ", active=" + active +
+                ", balance=" + balance +
+                ", customname='" + customname + '\'' +
+                '}';
     }
 }

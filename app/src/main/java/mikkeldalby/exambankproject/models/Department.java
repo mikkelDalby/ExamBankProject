@@ -13,6 +13,9 @@ public class Department implements Parcelable {
         this.city = city;
     }
 
+    public Department() {
+    }
+
     protected Department(Parcel in) {
         registrationNumber = in.readString();
         city = in.readString();
@@ -55,5 +58,13 @@ public class Department implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(registrationNumber);
         dest.writeString(city);
+    }
+
+    @Override
+    public String toString() {
+        return "Department{" +
+                "registrationNumber='" + registrationNumber + '\'' +
+                ", city='" + city + '\'' +
+                '}';
     }
 }

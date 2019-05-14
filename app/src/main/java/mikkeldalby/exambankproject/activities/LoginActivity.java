@@ -19,7 +19,6 @@ public class LoginActivity extends AppCompatActivity {
 
     public EditText email, password;
     public Button loginBtn, createAccountBtn;
-    public ProgressDialog mProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +64,6 @@ public class LoginActivity extends AppCompatActivity {
 
     /**
      * Validates the login form
-     * TODO: Setup more validation, Check if email is a valid email
      */
     private boolean validateForm(){
         boolean valid = true;
