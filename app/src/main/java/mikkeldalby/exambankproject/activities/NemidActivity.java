@@ -1,7 +1,6 @@
 package mikkeldalby.exambankproject.activities;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,9 +11,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import mikkeldalby.exambankproject.R;
+import mikkeldalby.exambankproject.services.AuthService;
 
 public class NemidActivity extends AppCompatActivity {
     private static final String TAG = "NemidActivity";
+
+    private AuthService authService = new AuthService(this);
 
     public TextView nemidKey;
     public EditText nemidValue;
@@ -37,7 +39,8 @@ public class NemidActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(NemidActivity.this, NavigationActivity.class);
+                authService.validateNemidKey(Integer.parseInt(nemidKey.getText().toString()), nemidValue, intent);
             }
         });
 

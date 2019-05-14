@@ -5,12 +5,14 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -32,6 +34,9 @@ public class AuthService {
         this.activity = activity;
     }
 
+    /**
+     * Sign in the user with email and password, and validate against firebase authentication
+     */
     public void signIn(String email, String password){
         Log.d(TAG, "signIn()");
         firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
@@ -49,6 +54,29 @@ public class AuthService {
         });
     }
 
+    /**
+     * Logout method
+     */
+    public void logout(){
+        Log.d(TAG, "Logging out");
+        firebaseAuth.signOut();
+    }
+
+    /**
+     * Is logged in method
+     */
+    public boolean isLoggedIn(){
+        try {
+            firebaseAuth.getCurrentUser().toString();
+            return true;
+        } catch (NullPointerException e){
+            return false;
+        }
+    }
+
+    /**
+     * Gets a random nemid key from firebase and starts nemidactivity if successfully getting documents from the db
+     */
     public void nemidVerification(){
         showProgressDialog();
         db.collection("customers").document(firebaseAuth.getCurrentUser().getUid()).collection("nemid").get()
@@ -74,9 +102,34 @@ public class AuthService {
 
     }
 
-    public boolean validateNemidKey(int key, int value){
-        boolean valid = true;
-        return valid;
+    /**
+     * Is used to validate the entered nemid value for a specific key
+     */
+    public void validateNemidKey(int key, final EditText nemidvalue, final Intent intent){
+        showProgressDialog();
+        db.collection("customers").document(firebaseAuth.getCurrentUser().getUid())
+                .collection("nemid").document(String.valueOf(key)).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                hideProgressDialog();
+                Log.d(TAG, "Validating nemid");
+                if (task.isSuccessful()) {
+                    Log.d(TAG, "Nemid: "+task.getResult().getId());
+                    Log.d(TAG, "Nemid value: " + task.getResult().getLong("value"));
+                    int val = Integer.parseInt(task.getResult().getLong("value").toString());
+                    if (val == Integer.parseInt(nemidvalue.getText().toString())){
+                        Log.d(TAG, "Valid nemid value");
+                        nemidvalue.setError(null);
+                        activity.startActivity(intent);
+                    } else {
+                        Log.d(TAG, "Invalid nemid value");
+                        nemidvalue.setError("Invalid");
+                    }
+                } else {
+                    Log.w(TAG, "Error getting documents.", task.getException());
+                }
+            }
+        });
     }
 
     /**
