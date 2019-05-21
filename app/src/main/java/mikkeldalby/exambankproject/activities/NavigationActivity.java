@@ -2,6 +2,7 @@ package mikkeldalby.exambankproject.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.Log;
@@ -35,6 +36,7 @@ public class NavigationActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setCheckedItem(R.id.nav_home);
         init();
     }
 
@@ -63,10 +65,8 @@ public class NavigationActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
             // Disable back button, so you cant go back to nemid
-            //super.onBackPressed();
+            super.onBackPressed();
         }
-
-        
     }
 
     @Override
@@ -98,13 +98,13 @@ public class NavigationActivity extends AppCompatActivity
 
         if (id == R.id.nav_home) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.content_frame, new AccountsFragment());
+            transaction.addToBackStack(null);
+            transaction.commit();
+        } else if (id == R.id.nav_transaction) {
 
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_tools) {
-
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_contact) {
 
         } else if (id == R.id.nav_logout) {
             authService.logout();

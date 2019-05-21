@@ -35,7 +35,6 @@ public class AsyncGetCustomer {
         this.accountsFragment = accountsFragment;
     }
 
-
     public void doInBackground() {
         db.collection("customers").document(auth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -95,7 +94,6 @@ public class AsyncGetCustomer {
                     Log.w(TAG, "Listen failed.", e);
                     return;
                 }
-
                 doInBackground();
             }
         });
