@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,10 +13,8 @@ import android.view.ViewGroup;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 
 import mikkeldalby.exambankproject.R;
 import mikkeldalby.exambankproject.models.Account;
@@ -33,10 +33,6 @@ public class AccountsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState){
-        //just change the fragment_dashboard
-        //with the fragment you want to inflate
-        //like if the class is HomeFragment it should have R.layout.home_fragment
-        //if it is DashboardFragment it should have R.layout.fragment_dashboard
         view = inflater.inflate(R.layout.fragment_accounts, null);
         init();
         asyncGetCustomer.doInBackground();
@@ -80,6 +76,13 @@ public class AccountsFragment extends Fragment {
                 public void onClick(View v) {
                     Log.d(TAG, a.getCustomname());
                     v.setBackgroundColor(R.color.design_default_color_primary_dark);
+
+                    FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                    DetailsFragment detailsFragment = new DetailsFragment();
+                    detailsFragment.account = a;
+                    fragmentTransaction.replace(R.id.content_frame, detailsFragment);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
                 }
             });
 

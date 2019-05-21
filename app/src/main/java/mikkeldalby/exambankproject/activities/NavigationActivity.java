@@ -65,6 +65,8 @@ public class NavigationActivity extends AppCompatActivity
             // Disable back button, so you cant go back to nemid
             //super.onBackPressed();
         }
+
+        
     }
 
     @Override
