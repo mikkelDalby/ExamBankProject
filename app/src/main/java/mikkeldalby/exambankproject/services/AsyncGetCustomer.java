@@ -19,6 +19,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import mikkeldalby.exambankproject.activities.AccountsFragment;
+import mikkeldalby.exambankproject.activities.NavigationActivity;
 import mikkeldalby.exambankproject.models.Account;
 import mikkeldalby.exambankproject.models.Customer;
 import mikkeldalby.exambankproject.models.Department;
@@ -29,10 +30,15 @@ public class AsyncGetCustomer {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     private AccountsFragment accountsFragment;
+    private NavigationActivity navigationActivity;
     private Customer c;
 
     public AsyncGetCustomer(AccountsFragment accountsFragment){
         this.accountsFragment = accountsFragment;
+    }
+
+    public AsyncGetCustomer(NavigationActivity navigationActivity) {
+        this.navigationActivity = navigationActivity;
     }
 
     public void doInBackground() {
@@ -95,6 +101,17 @@ public class AsyncGetCustomer {
                     return;
                 }
                 doInBackground();
+            }
+        });
+    }
+
+    public void getCustomerLoggedIn(){
+        db.collection("customers").document(auth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                Customer customer = task.getResult().toObject(Customer.class);
+                navigationActivity.name.setText(customer.getFirstname() + " " + customer.getLastname());
+                navigationActivity.accountNumber.setText("Customer number: " + customer.getCustomernumber());
             }
         });
     }

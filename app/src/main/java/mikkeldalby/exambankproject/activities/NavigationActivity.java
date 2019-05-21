@@ -2,6 +2,7 @@ package mikkeldalby.exambankproject.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -13,8 +14,11 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.View;
+import android.widget.TextView;
 
 import mikkeldalby.exambankproject.R;
+import mikkeldalby.exambankproject.services.AsyncGetCustomer;
 import mikkeldalby.exambankproject.services.AuthService;
 
 public class NavigationActivity extends AppCompatActivity
@@ -22,6 +26,10 @@ public class NavigationActivity extends AppCompatActivity
     private static final String TAG = "NavigationActivity";
 
     private AuthService authService = new AuthService(this);
+
+    private AsyncGetCustomer asyncGetCustomer = new AsyncGetCustomer(this);
+
+    public TextView name, accountNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +49,15 @@ public class NavigationActivity extends AppCompatActivity
     }
 
     public void init(){
-        replaceFragment(R.id.content_frame);
+        AccountsFragment accountsFragment = new AccountsFragment();
+        replaceFragment(accountsFragment);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
+        name = headerView.findViewById(R.id.nav_header_name);
+        accountNumber = headerView.findViewById(R.id.nav_header_anumber);
+
+        asyncGetCustomer.getCustomerLoggedIn();
+
     }
 
     @Override
@@ -54,8 +70,8 @@ public class NavigationActivity extends AppCompatActivity
         }
     }
 
-    public void replaceFragment(int fragmentId) {
-        getSupportFragmentManager().beginTransaction().replace(fragmentId, new AccountsFragment()).commit();
+    public void replaceFragment(Fragment fragment) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
     }
 
     @Override
