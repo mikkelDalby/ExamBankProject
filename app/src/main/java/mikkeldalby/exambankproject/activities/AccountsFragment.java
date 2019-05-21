@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,14 +18,14 @@ import java.util.Comparator;
 import mikkeldalby.exambankproject.R;
 import mikkeldalby.exambankproject.models.Account;
 import mikkeldalby.exambankproject.models.Customer;
-import mikkeldalby.exambankproject.services.AsyncGetCustomer;
+import mikkeldalby.exambankproject.services.GetCustomerService;
 
 public class AccountsFragment extends Fragment {
     private static final String TAG = "AccountsFragment";
     private View view;
 
     public TableLayout accountsTable;
-    private AsyncGetCustomer asyncGetCustomer = new AsyncGetCustomer(this);
+    private GetCustomerService getCustomerService = new GetCustomerService(this);
 
     @Nullable
     @Override
@@ -35,12 +34,12 @@ public class AccountsFragment extends Fragment {
                              @Nullable Bundle savedInstanceState){
         view = inflater.inflate(R.layout.fragment_accounts, null);
         init();
-        asyncGetCustomer.doInBackground();
+        getCustomerService.doInBackground();
         return view;
     }
 
     public void init(){
-        asyncGetCustomer.snapshotListener();
+        getCustomerService.snapshotListener();
     }
 
     public void updateUi(Customer customer){
@@ -65,7 +64,7 @@ public class AccountsFragment extends Fragment {
             accountName.setText(a.getCustomname());
 
             if (a.isActive()) {
-                accountBalance.setText(String.valueOf(a.getBalance()));
+                accountBalance.setText(String.format("%.2f", a.getBalance()) + " " + getString(R.string.valuta_dkk));
             } else {
                 accountBalance.setText("Not active");
             }

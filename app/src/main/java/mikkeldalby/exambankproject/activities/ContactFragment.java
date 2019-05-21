@@ -11,20 +11,20 @@ import android.view.ViewGroup;
 import mikkeldalby.exambankproject.R;
 import mikkeldalby.exambankproject.models.Account;
 
-
-public class DetailsFragment extends Fragment {
-    private static final String TAG = "DetailsFragment";
+public class ContactFragment extends Fragment {
+    private static final String TAG = "ContactFragment";
     private View view;
-
-    public Account account;
 
     @Override
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_details, null);
+        //just change the fragment_dashboard
+        //with the fragment you want to inflate
+        //like if the class is HomeFragment it should have R.layout.home_fragment
+        //if it is DashboardFragment it should have R.layout.fragment_dashboard
+        view = inflater.inflate(R.layout.fragment_contact, null);
         init();
-        Log.d(TAG, account.getCustomname());
         return view;
     }
 

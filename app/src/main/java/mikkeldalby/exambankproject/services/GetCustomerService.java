@@ -24,8 +24,8 @@ import mikkeldalby.exambankproject.models.Account;
 import mikkeldalby.exambankproject.models.Customer;
 import mikkeldalby.exambankproject.models.Department;
 
-public class AsyncGetCustomer {
-    private static final String TAG = "AsyncGetCustomer";
+public class GetCustomerService {
+    private static final String TAG = "GetCustomerService";
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -33,11 +33,11 @@ public class AsyncGetCustomer {
     private NavigationActivity navigationActivity;
     private Customer c;
 
-    public AsyncGetCustomer(AccountsFragment accountsFragment){
+    public GetCustomerService(AccountsFragment accountsFragment){
         this.accountsFragment = accountsFragment;
     }
 
-    public AsyncGetCustomer(NavigationActivity navigationActivity) {
+    public GetCustomerService(NavigationActivity navigationActivity) {
         this.navigationActivity = navigationActivity;
     }
 
@@ -84,7 +84,12 @@ public class AsyncGetCustomer {
                     department.setRegistrationNumber(task.getResult().getId());
                     c.setDepartment(department);
                     Log.d(TAG, c.toString());
-                    accountsFragment.updateUi(c);
+                    try {
+                        accountsFragment.updateUi(c);
+                    } catch (NullPointerException e){
+                        Log.d(TAG, "Failed to updateUI.. Trying again");
+                        doInBackground();
+                    }
                 } else {
                     Log.d(TAG, "Get department failed");
                 }
@@ -100,11 +105,13 @@ public class AsyncGetCustomer {
                     Log.w(TAG, "Listen failed.", e);
                     return;
                 }
+                Log.d(TAG, "new snapshot");
                 doInBackground();
             }
         });
     }
 
+    // Used in navigationActivity for navigation header
     public void getCustomerLoggedIn(){
         db.collection("customers").document(auth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override

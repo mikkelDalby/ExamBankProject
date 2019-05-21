@@ -13,12 +13,11 @@ import android.support.v4.widget.DrawerLayout;
 
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 
 import mikkeldalby.exambankproject.R;
-import mikkeldalby.exambankproject.services.AsyncGetCustomer;
+import mikkeldalby.exambankproject.services.GetCustomerService;
 import mikkeldalby.exambankproject.services.AuthService;
 
 public class NavigationActivity extends AppCompatActivity
@@ -27,7 +26,7 @@ public class NavigationActivity extends AppCompatActivity
 
     private AuthService authService = new AuthService(this);
 
-    private AsyncGetCustomer asyncGetCustomer = new AsyncGetCustomer(this);
+    private GetCustomerService getCustomerService = new GetCustomerService(this);
 
     public TextView name, accountNumber;
 
@@ -56,8 +55,7 @@ public class NavigationActivity extends AppCompatActivity
         name = headerView.findViewById(R.id.nav_header_name);
         accountNumber = headerView.findViewById(R.id.nav_header_anumber);
 
-        asyncGetCustomer.getCustomerLoggedIn();
-
+        getCustomerService.getCustomerLoggedIn();
     }
 
     @Override
@@ -85,27 +83,28 @@ public class NavigationActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.navigation, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
+    // Settings tab in toolbar
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.navigation, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle action bar item clicks here. The action bar will
+//        // automatically handle clicks on the Home/Up button, so long
+//        // as you specify a parent activity in AndroidManifest.xml.
+//        int id = item.getItemId();
+//
+//        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -113,15 +112,20 @@ public class NavigationActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            // Handle the camera action
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.content_frame, new AccountsFragment());
             transaction.addToBackStack(null);
             transaction.commit();
         } else if (id == R.id.nav_transaction) {
-
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.content_frame, new TransactionFragment());
+            transaction.addToBackStack(null);
+            transaction.commit();
         } else if (id == R.id.nav_contact) {
-
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.content_frame, new ContactFragment());
+            transaction.addToBackStack(null);
+            transaction.commit();
         } else if (id == R.id.nav_logout) {
             authService.logout();
             Intent intent = new Intent(this, LoginActivity.class);

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:dividerPadding="10dp"
+    android:gravity="center|top"
+    android:orientation="vertical"
+    android:paddingTop="10dp"
+    android:showDividers="middle">
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/title_make_transaction"
+        android:textAlignment="center"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/transaction_self"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:text="@string/button_to_self"
+        android:textAlignment="center" />
+
+    <Button
+        android:id="@+id/transaction_others"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:text="@string/button_transfer_to_other" />
+
+    <Button
+        android:id="@+id/transaction_pay_bill"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:text="@string/button_pay_bill" />
+
+    <FrameLayout
+        android:id="@+id/transaction_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center|top">
+
+    </FrameLayout>
+</LinearLayout>

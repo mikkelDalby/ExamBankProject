@@ -40,4 +40,12 @@
     <string name="menu_overview">Overview</string>
     <string name="menu_transaction">Transaction</string>
     <string name="menu_contact">Contact</string>
+    <string name="valuta_dkk">kr.</string>
+    <string name="title_make_transaction">Make a transaction</string>
+    <string name="button_to_self">Transfer to yourself</string>
+    <string name="button_transfer_to_other">Transfer to others</string>
+    <string name="button_pay_bill">Pay bill</string>
+    <string name="title_from">From account</string>
+    <string name="title_to">To account</string>
+    <string name="button_transfer_self">Transfer</string>
 </resources>
