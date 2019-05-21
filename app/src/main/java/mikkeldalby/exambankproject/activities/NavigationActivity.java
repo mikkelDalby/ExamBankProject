@@ -17,7 +17,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import mikkeldalby.exambankproject.R;
-import mikkeldalby.exambankproject.services.GetCustomerService;
+import mikkeldalby.exambankproject.services.CustomerService;
 import mikkeldalby.exambankproject.services.AuthService;
 
 public class NavigationActivity extends AppCompatActivity
@@ -26,7 +26,7 @@ public class NavigationActivity extends AppCompatActivity
 
     private AuthService authService = new AuthService(this);
 
-    private GetCustomerService getCustomerService = new GetCustomerService(this);
+    private CustomerService customerService = new CustomerService(this);
 
     public TextView name, accountNumber;
 
@@ -55,7 +55,7 @@ public class NavigationActivity extends AppCompatActivity
         name = headerView.findViewById(R.id.nav_header_name);
         accountNumber = headerView.findViewById(R.id.nav_header_anumber);
 
-        getCustomerService.getCustomerLoggedIn();
+        customerService.getCustomerLoggedIn();
     }
 
     @Override

@@ -18,14 +18,14 @@ import java.util.Comparator;
 import mikkeldalby.exambankproject.R;
 import mikkeldalby.exambankproject.models.Account;
 import mikkeldalby.exambankproject.models.Customer;
-import mikkeldalby.exambankproject.services.GetCustomerService;
+import mikkeldalby.exambankproject.services.CustomerService;
 
 public class AccountsFragment extends Fragment {
     private static final String TAG = "AccountsFragment";
     private View view;
 
     public TableLayout accountsTable;
-    private GetCustomerService getCustomerService = new GetCustomerService(this);
+    private CustomerService customerService = new CustomerService(this);
 
     @Nullable
     @Override
@@ -34,12 +34,12 @@ public class AccountsFragment extends Fragment {
                              @Nullable Bundle savedInstanceState){
         view = inflater.inflate(R.layout.fragment_accounts, null);
         init();
-        getCustomerService.doInBackground();
+        customerService.doInBackground(TAG);
         return view;
     }
 
     public void init(){
-        getCustomerService.snapshotListener();
+        customerService.snapshotListener(TAG);
     }
 
     public void updateUi(Customer customer){

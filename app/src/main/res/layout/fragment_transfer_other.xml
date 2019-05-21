@@ -7,8 +7,19 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/title_from2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Other" />
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/title_from"
+        android:textAlignment="center"
+        android:textSize="18sp" />
+
+    <Spinner
+        android:id="@+id/other_spinner_from2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:spinnerMode="dropdown" />
 </LinearLayout>

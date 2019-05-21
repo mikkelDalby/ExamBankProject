@@ -20,28 +20,35 @@ import javax.annotation.Nullable;
 
 import mikkeldalby.exambankproject.activities.AccountsFragment;
 import mikkeldalby.exambankproject.activities.NavigationActivity;
+import mikkeldalby.exambankproject.activities.TransactionFragment;
+import mikkeldalby.exambankproject.activities.subfragments.TransferSelfFragment;
 import mikkeldalby.exambankproject.models.Account;
 import mikkeldalby.exambankproject.models.Customer;
 import mikkeldalby.exambankproject.models.Department;
 
-public class GetCustomerService {
-    private static final String TAG = "GetCustomerService";
+public class CustomerService {
+    private static final String TAG = "CustomerService";
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     private AccountsFragment accountsFragment;
     private NavigationActivity navigationActivity;
+    private TransactionFragment transactionFragment;
     private Customer c;
 
-    public GetCustomerService(AccountsFragment accountsFragment){
+    public CustomerService(AccountsFragment accountsFragment){
         this.accountsFragment = accountsFragment;
     }
 
-    public GetCustomerService(NavigationActivity navigationActivity) {
+    public CustomerService(NavigationActivity navigationActivity) {
         this.navigationActivity = navigationActivity;
     }
 
-    public void doInBackground() {
+    public CustomerService(TransactionFragment transactionFragment) {
+        this.transactionFragment = transactionFragment;
+    }
+
+    public void doInBackground(String frag) {
         db.collection("customers").document(auth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -49,14 +56,14 @@ public class GetCustomerService {
                     Log.d(TAG, "getCustomer Success");
                     c = task.getResult().toObject(Customer.class);
                     c.setCustomerId(task.getResult().getId());
-                    getAccounts();
+                    getAccounts(frag);
                 } else {
                     Log.d(TAG, "getCustomer Fail");
                 }
             }
         });
     }
-    private void getAccounts(){
+    private void getAccounts(String frag){
         db.collection("customers").document(auth.getCurrentUser().getUid()).collection("accounts").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -68,14 +75,14 @@ public class GetCustomerService {
                         accounts.add(account);
                     }
                     c.setAccounts(accounts);
-                    getDepartment();
+                    getDepartment(frag);
                 } else {
                     Log.d(TAG, "Get customers failed");
                 }
             }
         });
     }
-    private void getDepartment(){
+    private void getDepartment(String frag){
         db.collection("departments").document(c.getRegistrationnumber()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -84,11 +91,24 @@ public class GetCustomerService {
                     department.setRegistrationNumber(task.getResult().getId());
                     c.setDepartment(department);
                     Log.d(TAG, c.toString());
-                    try {
-                        accountsFragment.updateUi(c);
-                    } catch (NullPointerException e){
-                        Log.d(TAG, "Failed to updateUI.. Trying again");
-                        doInBackground();
+
+                    // If from AccountsFragment
+                    switch (frag){
+                        case "AccountsFragment":
+                            try {
+                                accountsFragment.updateUi(c);
+                            } catch (NullPointerException e){
+                                Log.d(TAG, "Failed to updateUI.. Trying again");
+                                doInBackground(frag);
+                            }
+                            break;
+                        case "TransactionFragment":
+                            try {
+                                transactionFragment.customer = c;
+                            } catch (NullPointerException e){
+                                Log.d(TAG, "Failed to updateUI.. Trying again");
+                                doInBackground(frag);
+                            }
                     }
                 } else {
                     Log.d(TAG, "Get department failed");
@@ -97,7 +117,7 @@ public class GetCustomerService {
         });
     }
 
-    public void snapshotListener(){
+    public void snapshotListener(String frag){
         db.collection("customers").document(auth.getCurrentUser().getUid()).collection("accounts").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
@@ -106,7 +126,7 @@ public class GetCustomerService {
                     return;
                 }
                 Log.d(TAG, "new snapshot");
-                doInBackground();
+                doInBackground(frag);
             }
         });
     }

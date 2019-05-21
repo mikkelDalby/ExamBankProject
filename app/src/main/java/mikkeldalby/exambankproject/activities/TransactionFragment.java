@@ -1,5 +1,6 @@
 package mikkeldalby.exambankproject.activities;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,12 +13,19 @@ import mikkeldalby.exambankproject.R;
 import mikkeldalby.exambankproject.activities.subfragments.PayBillFragment;
 import mikkeldalby.exambankproject.activities.subfragments.TransferOtherFragment;
 import mikkeldalby.exambankproject.activities.subfragments.TransferSelfFragment;
+import mikkeldalby.exambankproject.models.Customer;
+import mikkeldalby.exambankproject.services.CustomerService;
 
 public class TransactionFragment extends Fragment {
     private static final String TAG = "TransactionFragment";
     private View view;
+    private CustomerService customerService = new CustomerService(this);
+
+    public Customer customer;
 
     public Button btnSelf, btnOther, btnBill;
+
+    public ProgressDialog mProgressDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -35,8 +43,7 @@ public class TransactionFragment extends Fragment {
 
         btnSelf.setOnClickListener(v -> {
             // Set self view
-            TransferSelfFragment transferSelfFragment = new TransferSelfFragment();
-            getFragmentManager().beginTransaction().replace(R.id.transaction_frame, transferSelfFragment).commit();
+            showSelf();
         });
 
         btnOther.setOnClickListener(v -> {
@@ -50,5 +57,39 @@ public class TransactionFragment extends Fragment {
             PayBillFragment payBillFragment = new PayBillFragment();
             getFragmentManager().beginTransaction().replace(R.id.transaction_frame, payBillFragment).commit();
         });
+
+        customerService.doInBackground(TAG);
+    }
+
+    public void showSelf(){
+        showProgressDialog();
+        TransferSelfFragment transferSelfFragment = new TransferSelfFragment();
+        try {
+            if (customer != null) {
+                transferSelfFragment.customer = customer;
+                hideProgressDialog();
+                getFragmentManager().beginTransaction().replace(R.id.transaction_frame, transferSelfFragment).commit();
+            }
+        } catch (NullPointerException e){
+            showSelf();
+        }
+    }
+
+    /**
+     * Show and hide progressDialog in the activity defined in this class
+     */
+    public void showProgressDialog() {
+        if (mProgressDialog == null) {
+            mProgressDialog = new ProgressDialog(this.getActivity());
+            mProgressDialog.setMessage("Loading...");
+            mProgressDialog.setIndeterminate(true);
+        }
+
+        mProgressDialog.show();
+    }
+    public void hideProgressDialog() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        }
     }
 }
