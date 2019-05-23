@@ -48,8 +48,7 @@ public class TransactionFragment extends Fragment {
 
         btnOther.setOnClickListener(v -> {
             // Set other view
-            TransferOtherFragment transferOtherFragment = new TransferOtherFragment();
-            getFragmentManager().beginTransaction().replace(R.id.transaction_frame, transferOtherFragment).commit();
+            showOther();
         });
 
         btnBill.setOnClickListener(v -> {
@@ -74,6 +73,20 @@ public class TransactionFragment extends Fragment {
             showSelf();
         }
     }
+    public void showOther(){
+        showProgressDialog();
+        TransferOtherFragment transferOtherFragment = new TransferOtherFragment();
+        try {
+            if (customer != null) {
+                transferOtherFragment.customer = customer;
+                hideProgressDialog();
+                getFragmentManager().beginTransaction().replace(R.id.transaction_frame, transferOtherFragment).addToBackStack(null).commit();
+            }
+        } catch (NullPointerException e){
+            showSelf();
+        }
+    }
+
 
     /**
      * Show and hide progressDialog in the activity defined in this class

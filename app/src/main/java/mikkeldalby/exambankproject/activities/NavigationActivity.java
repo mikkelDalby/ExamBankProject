@@ -56,6 +56,7 @@ public class NavigationActivity extends AppCompatActivity
         accountNumber = headerView.findViewById(R.id.nav_header_anumber);
 
         customerService.getCustomerLoggedIn();
+        this.setTitle(R.string.app_name);
     }
 
     @Override
@@ -78,7 +79,7 @@ public class NavigationActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            // Disable back button, so you cant go back to nemid
+            // Disable back button, so you cant go back toSpinner nemid
             super.onBackPressed();
         }
     }
@@ -86,7 +87,7 @@ public class NavigationActivity extends AppCompatActivity
     // Settings tab in toolbar
 //    @Override
 //    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
+//        // Inflate the menu; this adds items toSpinner the action bar if it is present.
 //        getMenuInflater().inflate(R.menu.navigation, menu);
 //        return true;
 //    }

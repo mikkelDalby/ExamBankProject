@@ -7,7 +7,6 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/title_from2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -17,9 +16,79 @@
         android:textSize="18sp" />
 
     <Spinner
-        android:id="@+id/other_spinner_from2"
+        android:id="@+id/other_spinner_from"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:spinnerMode="dropdown" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="@string/title_to"
+        android:textAlignment="center"
+        android:textSize="18sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="@string/title_reg_number"
+        android:textAlignment="center" />
+
+    <EditText
+        android:id="@+id/other_reg_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:autofillHints="@string/hint_number"
+        android:ems="10"
+        android:hint="@string/hint_number"
+        android:inputType="number"
+        android:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="@string/title_account_number"
+        android:textAlignment="center" />
+
+    <EditText
+        android:id="@+id/other_account_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:autofillHints="@string/hint_number"
+        android:ems="10"
+        android:hint="@string/hint_number"
+        android:inputType="number"
+        android:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="@string/title_amount"
+        android:textAlignment="center"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/other_amount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autofillHints="@string/hint_dkk"
+        android:ems="10"
+        android:hint="@string/hint_dkk"
+        android:inputType="numberDecimal"
+        android:textAlignment="center" />
+
+    <Button
+        android:id="@+id/other_transfer_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/button_transfer_self" />
 </LinearLayout>

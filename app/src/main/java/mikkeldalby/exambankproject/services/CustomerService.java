@@ -92,13 +92,13 @@ public class CustomerService {
                     c.setDepartment(department);
                     Log.d(TAG, c.toString());
 
-                    // If from AccountsFragment
+                    // If fromSpinner AccountsFragment
                     switch (frag){
                         case "AccountsFragment":
                             try {
                                 accountsFragment.updateUi(c);
                             } catch (NullPointerException e){
-                                Log.d(TAG, "Failed to updateUI.. Trying again");
+                                Log.d(TAG, "Failed toSpinner updateUI.. Trying again");
                                 doInBackground(frag);
                             }
                             break;
@@ -106,7 +106,7 @@ public class CustomerService {
                             try {
                                 transactionFragment.customer = c;
                             } catch (NullPointerException e){
-                                Log.d(TAG, "Failed to updateUI.. Trying again");
+                                Log.d(TAG, "Failed toSpinner updateUI.. Trying again");
                                 doInBackground(frag);
                             }
                     }

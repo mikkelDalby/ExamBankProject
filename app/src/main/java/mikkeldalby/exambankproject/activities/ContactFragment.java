@@ -20,7 +20,7 @@ public class ContactFragment extends Fragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         //just change the fragment_dashboard
-        //with the fragment you want to inflate
+        //with the fragment you want toSpinner inflate
         //like if the class is HomeFragment it should have R.layout.home_fragment
         //if it is DashboardFragment it should have R.layout.fragment_dashboard
         view = inflater.inflate(R.layout.fragment_contact, null);

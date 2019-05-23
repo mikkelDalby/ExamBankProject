@@ -49,4 +49,8 @@
     <string name="title_to">To account</string>
     <string name="button_transfer_self">Transfer</string>
     <string name="title_amount">Amount</string>
+    <string name="title_reg_number">Registration number</string>
+    <string name="title_account_number">Account number</string>
+    <string name="hint_number">1234</string>
+    <string name="hint_dkk">DKK</string>
 </resources>

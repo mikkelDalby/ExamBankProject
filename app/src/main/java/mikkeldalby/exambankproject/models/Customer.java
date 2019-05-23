@@ -3,6 +3,10 @@ package mikkeldalby.exambankproject.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Customer implements Parcelable {
@@ -169,6 +173,23 @@ public class Customer implements Parcelable {
         dest.writeParcelable(department, flags);
     }
 
+    public int getAge(){
+        int age = -1;
+        String a = cpr.replaceAll("..(?!$)", "$0 ");
+        List<String> b = Arrays.asList(a.split(" "));
+        LocalDate birthDate = LocalDate.of(Integer.parseInt(b.get(2)+b.get(3)),
+                Integer.parseInt(b.get(1)), Integer.parseInt(b.get(0)));
+        LocalDate currentDate = LocalDate.now();
+
+        if ((birthDate != null) && (currentDate != null)) {
+            age = Period.between(birthDate, currentDate).getYears();
+        } else {
+            age = 0;
+        }
+
+        return age;
+    }
+
     @Override
     public String toString() {
         return "Customer{" +
@@ -184,5 +205,18 @@ public class Customer implements Parcelable {
                 ", accounts=" + accounts +
                 ", department=" + department +
                 '}';
+    }
+
+    public List<String> getPossibleAccounts() {
+        List<String> fromAccounts = new ArrayList<>();
+        for (Account a: getAccounts()){
+            boolean oldEnough = getAge() > 76;
+            if (a.isActive()) {
+                if (oldEnough && a.getAccountType().equals("pension") || !a.getAccountType().equals("pension")){
+                    fromAccounts.add(a.getCustomname());
+                }
+            }
+        }
+        return fromAccounts;
     }
 }

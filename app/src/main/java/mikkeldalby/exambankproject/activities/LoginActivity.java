@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
 
     /**
      * Initialization method of this activity
-     * Responsible for mapping views to variables and setup onclick methods
+     * Responsible for mapping views toSpinner variables and setup onclick methods
      */
     private void init(){
         email = findViewById(R.id.login_email);

@@ -63,7 +63,7 @@ public class AuthService {
     }
 
     /**
-     * Is logged in method
+     * Is logged in method returns true if logged in
      */
     public boolean isLoggedIn(){
         try {
@@ -75,7 +75,7 @@ public class AuthService {
     }
 
     /**
-     * Gets a random nemid key from firebase and starts nemidactivity if successfully getting documents from the db
+     * Gets a random nemid key fromSpinner firebase and starts nemidactivity if successfully getting documents from the db
      */
     public void nemidVerification(){
         showProgressDialog();
@@ -90,7 +90,6 @@ public class AuthService {
                             Log.d(TAG, "Nemid: "+task.getResult().getDocuments().get(i).getId());
                             Log.d(TAG, "Nemid value: " + task.getResult().getDocuments().get(i).getLong("value"));
                             int key = Integer.parseInt(task.getResult().getDocuments().get(i).getId());
-
                             Intent intent = new Intent(activity, NemidActivity.class);
                             intent.putExtra("key", key);
                             activity.startActivity(intent);
@@ -102,7 +101,7 @@ public class AuthService {
     }
 
     /**
-     * Is used to validate the entered nemid value for a specific key
+     * Is used toSpinner validate the entered nemid value for a specific key
      */
     public void validateNemidKey(int key, final EditText nemidvalue, final Intent intent){
         showProgressDialog();

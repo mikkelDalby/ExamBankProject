@@ -25,7 +25,7 @@ public class TransferSelfFragment extends Fragment {
     private static final String TAG = "TransferSelfFragment";
     private View view;
 
-    public Spinner from, to;
+    public Spinner fromSpinner, toSpinner;
     public EditText amount;
     public Button transferBtn;
 
@@ -45,39 +45,35 @@ public class TransferSelfFragment extends Fragment {
     }
 
     public void init() {
-        from = view.findViewById(R.id.self_spinner_from);
-        to = view.findViewById(R.id.self_spinner_to);
+        fromSpinner = view.findViewById(R.id.self_spinner_from);
+        toSpinner = view.findViewById(R.id.self_spinner_to);
         amount = view.findViewById(R.id.self_amount);
         transferBtn = view.findViewById(R.id.self_button_transfer);
         fromAccounts.clear();
 
-        // TODO: Check if old enough to transfer from pension account
-        for (Account a: customer.getAccounts()){
-            if (a.isActive()) {
-                fromAccounts.add(a.getCustomname());
-            }
-        }
+        fromAccounts = customer.getPossibleAccounts();
 
-        ArrayAdapter aa = new ArrayAdapter(this.getActivity(), android.R.layout.simple_spinner_item, fromAccounts);
-        ArrayAdapter bb = new ArrayAdapter(this.getActivity(), android.R.layout.simple_spinner_item, toAccounts);
-        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //Setting the ArrayAdapter data on the Spinner
-        from.setAdapter(aa);
-        from.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        ArrayAdapter fromAdapter = new ArrayAdapter(this.getActivity(), android.R.layout.simple_spinner_item, fromAccounts);
+        ArrayAdapter toAdapter = new ArrayAdapter(this.getActivity(), android.R.layout.simple_spinner_item, toAccounts);
+        fromAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        //Setting the ArrayAdapter data on the fromSpinner Spinner
+        fromSpinner.setAdapter(fromAdapter);
+        fromSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Log.d(TAG, fromAccounts.get(position));
 
                 toAccounts.clear();
-                for (Account a: customer.getAccounts()){
-                    if (a.isActive() && !a.getCustomname().equals(fromAccounts.get(position))) {
-                        toAccounts.add(a.getCustomname());
+                for (String s: fromAccounts){
+                    if (!s.equals(fromAccounts.get(position))) {
+                        toAccounts.add(s);
                     }
                 }
 
-                bb.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                //Setting the ArrayAdapter data on the Spinner
-                to.setAdapter(bb);
+                toAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                //Setting the ArrayAdapter data on the toSpinner Spinner
+                toSpinner.setAdapter(toAdapter);
             }
 
             @Override
@@ -98,8 +94,8 @@ public class TransferSelfFragment extends Fragment {
                     String toAccount = "";
                     double value = Double.parseDouble(amount.getText().toString());
 
-                    String selectedFrom = fromAccounts.get(from.getSelectedItemPosition());
-                    String selectedTo = toAccounts.get(to.getSelectedItemPosition());
+                    String selectedFrom = fromAccounts.get(fromSpinner.getSelectedItemPosition());
+                    String selectedTo = toAccounts.get(toSpinner.getSelectedItemPosition());
                     for (Account a: customer.getAccounts()){
                         if (a.getCustomname().equals(selectedFrom)){
                             fromAccount = a.getAccountType();
