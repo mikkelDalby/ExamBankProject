@@ -53,4 +53,14 @@
     <string name="title_account_number">Account number</string>
     <string name="hint_number">1234</string>
     <string name="hint_dkk">DKK</string>
+    <string name="title_pay_bill">Pay bill</string>
+    <string name="title_bill_type">Bill type</string>
+    <string name="hint_71">+71</string>
+    <string name="title_pay_id">Payment id</string>
+    <string name="hint_payid">Payment id</string>
+    <string name="hint_creditor">Creditor</string>
+    <string name="title_creditor">Creditor</string>
+    <string name="button_pay">Pay bill</string>
+    <string name="title_pay_date">Pay date</string>
+    <string name="button_pick_date">Pick date</string>
 </resources>

@@ -1,14 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView7"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Pay bill" />
-</LinearLayout>
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/title_from"
+            android:textAlignment="center"
+            android:textSize="18sp" />
+
+        <Spinner
+            android:id="@+id/pay_from_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="@string/title_bill_type"
+            android:textAlignment="center"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/pay_bill_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:autofillHints="@string/hint_71"
+            android:ems="10"
+            android:hint="@string/hint_71"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="@string/title_pay_id"
+            android:textAlignment="center"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/pay_payid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:autofillHints="@string/hint_payid"
+            android:ems="10"
+            android:hint="@string/hint_payid"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="@string/title_creditor"
+            android:textAlignment="center"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/pay_creditor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:autofillHints="@string/hint_creditor"
+            android:ems="10"
+            android:hint="@string/hint_creditor"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="@string/title_amount"
+            android:textAlignment="center"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/pay_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:autofillHints="@string/hint_number"
+            android:ems="10"
+            android:hint="@string/hint_number"
+            android:inputType="numberDecimal" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="@string/title_pay_date"
+            android:textAlignment="center"
+            android:textSize="14sp" />
+        <DatePicker
+            android:id="@+id/pay_date_picker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:datePickerMode="calendar"
+            android:layout_gravity="center"/>
+
+        <Button
+            android:id="@+id/pay_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_pay" />
+    </LinearLayout>
+
+</ScrollView>

@@ -3,7 +3,6 @@ package mikkeldalby.exambankproject.services;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.text.InputType;
 import android.util.Log;
@@ -26,7 +25,6 @@ import java.util.Map;
 import java.util.Random;
 
 import mikkeldalby.exambankproject.R;
-import mikkeldalby.exambankproject.activities.NemidActivity;
 import mikkeldalby.exambankproject.models.Account;
 import mikkeldalby.exambankproject.models.Customer;
 
@@ -107,60 +105,6 @@ public class TransactionService {
 
         nemidVerification();
     }
-
-    /**
-     * Gets a random nemid key fromSpinner firebase and starts nemidactivity if successfully getting documents from the db
-     */
-    public void nemidVerification(){
-        db.collection("customers").document(auth.getCurrentUser().getUid()).collection("nemid").get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            Random r = new Random();
-                            int i = r.nextInt(task.getResult().size());
-                            Log.d(TAG, "Nemid: "+task.getResult().getDocuments().get(i).getId());
-                            Log.d(TAG, "Nemid value: " + task.getResult().getDocuments().get(i).getLong("value"));
-                            int key = Integer.parseInt(task.getResult().getDocuments().get(i).getId());
-                            showNemidPopup(String.valueOf(key));
-                        } else {
-                            Log.w(TAG, "Error getting documents.", task.getException());
-                        }
-                    }
-                });
-    }
-
-    /**
-     * Is used toSpinner validate the entered nemid value for a specific key
-     */
-    public void validateNemidKey(int key, int value){
-        db.collection("customers").document(auth.getCurrentUser().getUid())
-                .collection("nemid").document(String.valueOf(key)).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                Log.d(TAG, "Validating nemid");
-                if (task.isSuccessful()) {
-                    Log.d(TAG, "Nemid: "+task.getResult().getId());
-                    Log.d(TAG, "Nemid value: " + task.getResult().getLong("value"));
-                    int val = Integer.parseInt(task.getResult().getLong("value").toString());
-                    if (val == value){
-                        Log.d(TAG, "Valid nemid value");
-                        switch (typeOfTransfer){
-                            case "other":
-                                processTransferToOther();
-                                break;
-                        }
-                    } else {
-                        Log.d(TAG, "Invalid nemid value");
-                        showNemidPopup(String.valueOf(key));
-                    }
-                } else {
-                    Log.w(TAG, "Error getting documents.", task.getException());
-                }
-            }
-        });
-    }
-
     private void processTransferToOther(){
         // Find customer to transfer to
         db.collection("customers").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -260,12 +204,68 @@ public class TransactionService {
         });
     }
 
+    /**
+     * Gets a random nemid key from firebase and calls showNemidPopup method with the key
+     */
+    public void nemidVerification(){
+        db.collection("customers").document(auth.getCurrentUser().getUid()).collection("nemid").get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            Random r = new Random();
+                            int i = r.nextInt(task.getResult().size());
+                            Log.d(TAG, "Nemid: "+task.getResult().getDocuments().get(i).getId());
+                            Log.d(TAG, "Nemid value: " + task.getResult().getDocuments().get(i).getLong("value"));
+                            int key = Integer.parseInt(task.getResult().getDocuments().get(i).getId());
+                            showNemidPopup(String.valueOf(key));
+                        } else {
+                            Log.w(TAG, "Error getting documents.", task.getException());
+                        }
+                    }
+                });
+    }
+
+    /**
+     * Validates the entered nemid value for a specific key
+     */
+    public void validateNemidKey(int key, int value){
+        db.collection("customers").document(auth.getCurrentUser().getUid())
+                .collection("nemid").document(String.valueOf(key)).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                Log.d(TAG, "Validating nemid");
+                if (task.isSuccessful()) {
+                    Log.d(TAG, "Nemid: "+task.getResult().getId());
+                    Log.d(TAG, "Nemid value: " + task.getResult().getLong("value"));
+                    int val = Integer.parseInt(task.getResult().getLong("value").toString());
+                    if (val == value){
+                        Log.d(TAG, "Valid nemid value");
+                        switch (typeOfTransfer){
+                            case "other":
+                                processTransferToOther();
+                                break;
+                        }
+                    } else {
+                        Log.d(TAG, "Invalid nemid value");
+                        showNemidPopup(String.valueOf(key));
+                    }
+                } else {
+                    Log.w(TAG, "Error getting documents.", task.getException());
+                }
+            }
+        });
+    }
+
+
+    /**
+     * Returns the customernumber from the account number
+     * Removes the first digit in the variable other otherAccountNumber and returns result
+     */
     private int getCustomerNumberFromAccountNumber(){
         return Integer.parseInt(String.valueOf(otherAccountNumber).substring(1));
     }
-    private int getAccountTypeFromAccountNumber(){
-        return Integer.parseInt(String.valueOf(otherAccountNumber).substring(0,1));
-    }
+
     /**
      * Different dialog methods
      */

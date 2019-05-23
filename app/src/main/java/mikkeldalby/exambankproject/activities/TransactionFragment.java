@@ -53,8 +53,7 @@ public class TransactionFragment extends Fragment {
 
         btnBill.setOnClickListener(v -> {
             // Set pay bill view
-            PayBillFragment payBillFragment = new PayBillFragment();
-            getFragmentManager().beginTransaction().replace(R.id.transaction_frame, payBillFragment).commit();
+            showPayBill();
         });
 
         customerService.doInBackground(TAG);
@@ -86,7 +85,19 @@ public class TransactionFragment extends Fragment {
             showSelf();
         }
     }
-
+    public void showPayBill(){
+        showProgressDialog();
+        PayBillFragment payBillFragment = new PayBillFragment();
+        try {
+            if (customer != null) {
+                payBillFragment.customer = customer;
+                hideProgressDialog();
+                getFragmentManager().beginTransaction().replace(R.id.transaction_frame, payBillFragment).addToBackStack(null).commit();
+            }
+        } catch (NullPointerException e){
+            showSelf();
+        }
+    }
 
     /**
      * Show and hide progressDialog in the activity defined in this class
