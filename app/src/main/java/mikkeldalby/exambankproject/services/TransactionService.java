@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -19,6 +20,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -305,5 +308,20 @@ public class TransactionService {
     }
     public void hideDialog(){
         dialog.dismiss();
+    }
+
+    /**
+     * Set bill in queue on firebase
+     */
+    public void payBill(String fromAccount, String billType, String payId, String creditor, String amountDKK, Calendar payDate, Context context) {
+        Map<String, Object> payment = new HashMap<>();
+        payment.put("fromaccount", fromAccount);
+        payment.put("billtype", billType);
+        payment.put("payid", payId);
+        payment.put("creditor", creditor);
+        payment.put("amount", amountDKK);
+        payment.put("paydate", new Date(payDate.getTimeInMillis()));
+        db.collection("customers").document(auth.getCurrentUser().getUid()).collection("payments").add(payment);
+        Toast.makeText(context, "Payment added to queue", Toast.LENGTH_LONG).show();
     }
 }

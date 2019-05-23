@@ -42,7 +42,8 @@
             android:autofillHints="@string/hint_71"
             android:ems="10"
             android:hint="@string/hint_71"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:textAlignment="center" />
 
         <TextView
             android:layout_width="match_parent"
@@ -60,7 +61,8 @@
             android:autofillHints="@string/hint_payid"
             android:ems="10"
             android:hint="@string/hint_payid"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:textAlignment="center" />
 
         <TextView
             android:layout_width="match_parent"
@@ -78,7 +80,8 @@
             android:autofillHints="@string/hint_creditor"
             android:ems="10"
             android:hint="@string/hint_creditor"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:textAlignment="center" />
 
         <TextView
             android:layout_width="match_parent"
@@ -96,7 +99,8 @@
             android:autofillHints="@string/hint_number"
             android:ems="10"
             android:hint="@string/hint_number"
-            android:inputType="numberDecimal" />
+            android:inputType="numberDecimal"
+            android:textAlignment="center" />
 
         <TextView
             android:layout_width="match_parent"
@@ -105,17 +109,19 @@
             android:text="@string/title_pay_date"
             android:textAlignment="center"
             android:textSize="14sp" />
+
         <DatePicker
             android:id="@+id/pay_date_picker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:datePickerMode="calendar"
-            android:layout_gravity="center"/>
+            android:headerBackground="@color/colorPrimary" />
 
         <Button
             android:id="@+id/pay_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
             android:text="@string/button_pay" />
     </LinearLayout>
 
