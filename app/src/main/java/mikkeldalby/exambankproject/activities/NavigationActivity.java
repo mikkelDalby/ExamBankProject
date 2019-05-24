@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import mikkeldalby.exambankproject.R;
+import mikkeldalby.exambankproject.services.BillService;
 import mikkeldalby.exambankproject.services.CustomerService;
 import mikkeldalby.exambankproject.services.AuthService;
 
@@ -25,6 +26,7 @@ public class NavigationActivity extends AppCompatActivity
     private static final String TAG = "NavigationActivity";
 
     private AuthService authService = new AuthService(this);
+    private BillService billService = new BillService();
 
     private CustomerService customerService = new CustomerService(this);
 
@@ -57,6 +59,8 @@ public class NavigationActivity extends AppCompatActivity
 
         customerService.getCustomerLoggedIn();
         this.setTitle(R.string.app_name);
+
+        billService.checkBillsToPay();
     }
 
     @Override

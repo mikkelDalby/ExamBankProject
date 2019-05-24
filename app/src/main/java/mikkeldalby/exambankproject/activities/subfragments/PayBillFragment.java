@@ -112,7 +112,6 @@ public class PayBillFragment extends Fragment {
                     Calendar date = Calendar.getInstance();
                     date.set(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth());
 
-                    Log.d(TAG, date.toString());
                     transactionService.payBill(from, type, id, cred, amountDKK, date, view.getContext());
 
                     resetFields();

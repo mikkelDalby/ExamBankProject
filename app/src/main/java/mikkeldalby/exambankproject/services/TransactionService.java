@@ -319,7 +319,7 @@ public class TransactionService {
         payment.put("billtype", billType);
         payment.put("payid", payId);
         payment.put("creditor", creditor);
-        payment.put("amount", amountDKK);
+        payment.put("amount", Double.parseDouble(amountDKK));
         payment.put("paydate", new Date(payDate.getTimeInMillis()));
         db.collection("customers").document(auth.getCurrentUser().getUid()).collection("payments").add(payment);
         Toast.makeText(context, "Payment added to queue", Toast.LENGTH_LONG).show();
