@@ -17,7 +17,7 @@ public class LoginActivity extends AppCompatActivity {
     private AuthService authService = new AuthService(this);
 
     public EditText email, password;
-    public Button loginBtn, createAccountBtn;
+    public Button loginBtn, createAccountBtn, resetBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +41,7 @@ public class LoginActivity extends AppCompatActivity {
         password = findViewById(R.id.login_password);
         loginBtn = findViewById(R.id.login_btn);
         createAccountBtn = findViewById(R.id.login_create_account_btn);
+        resetBtn = findViewById(R.id.login_reset_pwd);
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +59,15 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        resetBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, ResetActivity.class);
+                startActivity(intent);
+            }
+        });
+
         Log.d(TAG, "Islogged in: " + authService.isLoggedIn());
     }
 

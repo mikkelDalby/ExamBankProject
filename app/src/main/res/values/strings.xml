@@ -70,4 +70,7 @@
     <string name="hint_city">City</string>
     <string name="hint_cpr">Birthday: ddmmyyyy</string>
     <string name="dialog_creating_user">Creating user...</string>
+    <string name="button_reset_pwd">Reset password</string>
+    <string name="title_reset_pwd">Reset password</string>
+    <string name="button_reset">Reset</string>
 </resources>
