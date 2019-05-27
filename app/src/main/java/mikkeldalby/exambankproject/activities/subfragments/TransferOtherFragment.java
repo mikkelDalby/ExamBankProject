@@ -40,6 +40,7 @@ public class TransferOtherFragment extends Fragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_transfer_other, null);
+        setRetainInstance(true);
         init();
         return view;
     }

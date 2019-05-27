@@ -63,4 +63,11 @@
     <string name="button_pay">Pay bill</string>
     <string name="title_pay_date">Pay date</string>
     <string name="button_pick_date">Pick date</string>
+    <string name="hint_firstname">Firstname</string>
+    <string name="hint_lastname">Lastname</string>
+    <string name="hint_adress">Adress</string>
+    <string name="hint_zipcode">Zipcode</string>
+    <string name="hint_city">City</string>
+    <string name="hint_cpr">Birthday: ddmmyyyy</string>
+    <string name="dialog_creating_user">Creating user...</string>
 </resources>

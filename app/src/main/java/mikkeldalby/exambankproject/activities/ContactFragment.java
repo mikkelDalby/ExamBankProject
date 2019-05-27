@@ -24,6 +24,7 @@ public class ContactFragment extends Fragment {
         //like if the class is HomeFragment it should have R.layout.home_fragment
         //if it is DashboardFragment it should have R.layout.fragment_dashboard
         view = inflater.inflate(R.layout.fragment_contact, null);
+        setRetainInstance(true);
         init();
         return view;
     }

@@ -2,6 +2,7 @@ package mikkeldalby.exambankproject.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -46,12 +47,15 @@ public class NavigationActivity extends AppCompatActivity
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_home);
+        if (savedInstanceState == null){
+            AccountsFragment accountsFragment = new AccountsFragment();
+            replaceFragment(accountsFragment);
+        }
         init();
     }
 
     public void init(){
-        AccountsFragment accountsFragment = new AccountsFragment();
-        replaceFragment(accountsFragment);
+
         NavigationView navigationView = findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
         name = headerView.findViewById(R.id.nav_header_name);
@@ -86,6 +90,11 @@ public class NavigationActivity extends AppCompatActivity
             // Disable back button, so you cant go back toSpinner nemid
             super.onBackPressed();
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
     }
 
     // Settings tab in toolbar

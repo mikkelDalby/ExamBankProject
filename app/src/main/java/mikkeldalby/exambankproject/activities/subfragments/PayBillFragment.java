@@ -1,6 +1,7 @@
 package mikkeldalby.exambankproject.activities.subfragments;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -47,6 +48,7 @@ public class PayBillFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_pay_bill, null);
         init();
+        setRetainInstance(true);
         return view;
     }
 

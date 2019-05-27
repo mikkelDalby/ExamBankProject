@@ -19,6 +19,13 @@ public class Account implements Parcelable {
         this.customname = customName;
     }
 
+    public Account(String accountnumber, boolean active, double balance, String customname) {
+        this.accountnumber = accountnumber;
+        this.active = active;
+        this.balance = balance;
+        this.customname = customname;
+    }
+
     public Account() {
     }
 
